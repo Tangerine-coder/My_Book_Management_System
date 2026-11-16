@@ -1,0 +1,12 @@
+# 个人学习日记（todo），只保留在本地，不提交、不上传
+todo.md
+
+# C++ 编译产物
+*.exe
+*.o
+*.obj
+*.ilk
+*.pdb
+*.out
+a.out
+build/
