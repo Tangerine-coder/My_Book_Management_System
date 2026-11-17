@@ -1,3 +1,5 @@
+#ifndef BOOK_H
+#define BOOK_H
 #include <iostream>
 #include <string>
 #include <vector>
@@ -13,7 +15,6 @@ private:
 public:
     Book();
     Book(int id_,string name_,string author_,int stock_);
-
     //getter
     int getId() const;
     string getName() const;
@@ -21,15 +22,15 @@ public:
     int getStock() const;
 
     //setting
-    void setId(int id_) const;
-    void setName(string name_) const;
-    void setAuthor(string author_) const;
-    void setStock(int stock_) const;
+    void setId(int id_);
+    void setName(string name_);
+    void setAuthor(string author_);
+    void setStock(int stock_);
 
     //图书自身行为
-    void borrow() const;
-    void getBack() const;
-    void menuInfo() const;
+    bool borrow();
+    void giveBack();
+    void showInfo() const;
 };
 
 
@@ -38,3 +39,6 @@ void addBook(vector<Book> &bookList);
 void queryBook(vector<Book> &bookList);
 void modifyBook(vector<Book> &bookList);
 void deleteBook(vector<Book> &bookList);
+
+
+#endif

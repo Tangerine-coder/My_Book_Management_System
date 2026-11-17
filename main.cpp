@@ -1,5 +1,5 @@
 #include <iostream>
-#include <book.h>
+#include "book.h"
 using namespace std;
 void menu()
 {
@@ -12,11 +12,11 @@ void menu()
 int main()
 {
     vector<Book> bookList;
-    int op;
-    cin >> op;
-    menu();
     while(true)
     {
+        int op;
+        cin >> op;
+        menu();
         if (op == 0)
         {
             cout << "保存成功" << endl;
