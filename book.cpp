@@ -30,7 +30,7 @@ void Book::giveBack()
 
 void Book::showInfo() const
 {
-    cout << id << 't' << name << 't' << author << 't' << stock << endl;
+    cout << id << '\t' << name << '\t' << author << '\t' << stock << endl;
 }
 
 void addBook(vector<Book> &bookList)
@@ -57,7 +57,7 @@ void addBook(vector<Book> &bookList)
 void queryBook(vector<Book> &bookList)
 {
     int choice;
-    cout << "1.按编号查询    2.按名字查询" << endl;
+    cout << "1.按编号查询    2.按书名查询" << endl;
     cin >> choice;
     if (choice == 1)
     {
@@ -67,11 +67,8 @@ void queryBook(vector<Book> &bookList)
         {
             if(b.getId() == id)
             {
-                cout << "编号" << '\t' << "书名" << '\t' << "作者" << '\t' << "库存" << endl;
-                cout << b.getId() << '\t';
-                cout << b.getName() << '\t';
-                cout << b.getAuthor() << '\t';
-                cout << b.getStock() << '\t';
+                cout << "编号\t书名\t作者\t库存" << endl;
+                b.showInfo();
                 return;
             }
         }
@@ -85,11 +82,103 @@ void queryBook(vector<Book> &bookList)
         {
             if (b.getName() == name)
             {
-                cout << "编号" << '\t' << "书名" << '\t' << "作者" << '\t' << "库存" << endl;
-                cout << b.getId() << '\t';
-                cout << b.getName() << '\t';
-                cout << b.getAuthor() << '\t';
-                cout << b.getStock() << '\t';
+                cout << "编号\t书名\t作者\t库存" << endl;
+                b.showInfo();
+                return;
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+}
+
+void modifyBook(vector<Book> &bookList)
+{
+    int choice;
+    cout << "1.按编号修改    2.按书名修改" << endl;
+    cin >> choice;
+    if (choice == 1)
+    {
+        int id;
+        cin >> id;
+        for (auto &b:bookList)
+        {
+            if (b.getId() == id)
+            {
+                int stock;
+                cin >> stock;
+                if (stock<0)
+                {
+                    cout << "库存为负，不合法！" << endl;
+                    return;
+                }
+                else
+                {
+                    b.setStock(stock);
+                    cout << "修改成功！" << endl;
+                    return;
+                }
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+    else if (choice == 2)
+    {
+        string name;
+        cout << "请输入书名：" << " ";
+        cin >> name;
+        for (auto &b:bookList)
+        {
+            if (b.getName() == name)
+            {
+                int stock;
+                cin >> stock;
+                if (stock < 0)
+                {
+                    cout << "库存为负，不合法！" << endl;
+                    return;
+                }
+                else
+                {
+                    b.setStock(stock);
+                    cout << "修改成功！" << endl;
+                    return;
+                }
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+}
+
+void deleteBook(vector<Book> &bookList)
+{
+    int choice;
+    cout << "1.按编号删除    2.按名字删除" << endl;
+    cin >> choice;
+    if (choice == 1)
+    {
+        int id;
+        cin >> id;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getId() == id)
+            {
+                bookList.erase(it);
+                cout << "删除成功！" << endl;
+                return;
+            }
+        }
+        cout << "为查找到此书！" << endl;
+    }
+    else if (choice == 2)
+    {
+        string name;
+        cin >> name;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getName() == name)
+            {
+                bookList.erase(it);
+                cout << "删除成功！" << endl;
                 return;
             }
         }

@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "build",
+            "command": "C:\\Users\\肖卓言\\scoop\\apps\\mingw\\current\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}\\*.cpp",
+                "-o",
+                "${workspaceFolder}\\app.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "编译本项目全部 .cpp 源文件，输出 app.exe"
+        }
+    ]
+}
