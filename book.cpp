@@ -39,7 +39,7 @@ void addBook(vector<Book> &bookList)
     string name;
     string author;
     int stock;
-    cout << "请输入编号：" <<" ";
+    cout << "请输入编号：";
     cin >> id;
     for (auto &b:bookList)
     {
@@ -49,7 +49,12 @@ void addBook(vector<Book> &bookList)
             return;
         }
     }
-    cin >> name >> author >> stock;
+    cout << "请输入书名：";
+    cin >> name;
+    cout << "请输入作者：";
+    cin >> author;
+    cout << "请输入库存: ";
+    cin >> stock;
     Book newBook(id,name,author,stock);
     bookList.push_back(newBook);
 }
@@ -62,6 +67,7 @@ void queryBook(vector<Book> &bookList)
     if (choice == 1)
     {
         int id;
+        cout << "请输入编号： ";
         cin >> id;
         for (auto &b:bookList)
         {
@@ -77,6 +83,7 @@ void queryBook(vector<Book> &bookList)
     else if (choice == 2)
     {
         string name;
+        cout << "请输入书名: ";
         cin >> name;
         for (auto &b:bookList)
         {
@@ -99,12 +106,14 @@ void modifyBook(vector<Book> &bookList)
     if (choice == 1)
     {
         int id;
+        cout << "请输入编号：";
         cin >> id;
         for (auto &b:bookList)
         {
             if (b.getId() == id)
             {
                 int stock;
+                cout << "输入库存数：";
                 cin >> stock;
                 if (stock<0)
                 {
@@ -131,6 +140,7 @@ void modifyBook(vector<Book> &bookList)
             if (b.getName() == name)
             {
                 int stock;
+                cout << "输入库存数：";
                 cin >> stock;
                 if (stock < 0)
                 {
@@ -157,6 +167,7 @@ void deleteBook(vector<Book> &bookList)
     if (choice == 1)
     {
         int id;
+        cout << "请输入编号：";
         cin >> id;
         for (auto it = bookList.begin();it != bookList.end();it++)
         {
@@ -172,6 +183,7 @@ void deleteBook(vector<Book> &bookList)
     else if (choice == 2)
     {
         string name;
+        cout << "请输入书名：";
         cin >> name;
         for (auto it = bookList.begin();it != bookList.end();it++)
         {
