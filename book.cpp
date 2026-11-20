@@ -178,7 +178,7 @@ void deleteBook(vector<Book> &bookList)
                 return;
             }
         }
-        cout << "为查找到此书！" << endl;
+        cout << "未查找到此书！" << endl;
     }
     else if (choice == 2)
     {
@@ -191,6 +191,99 @@ void deleteBook(vector<Book> &bookList)
             {
                 bookList.erase(it);
                 cout << "删除成功！" << endl;
+                return;
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+}
+
+void borrowBook(vector<Book> &bookList)
+{
+    int choice;
+    cout << "1.按编号借书   2.按书名借书" << endl;
+    cin >> choice;
+    if (choice == 1)
+    {
+        int id;
+        cout << "请输入编号：";
+        cin >> id;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getId() == id)
+            {
+                int stock = it->getStock();
+                if (it->borrow())
+                {
+                    cout << "借书成功！" << endl;
+                    return;
+                }
+                else
+                {
+                    cout << "借书失败，库存不够！" << endl;
+                    return;
+                }
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+    else if (choice == 2)
+    {
+        string name;
+        cout << "请输入书名：";
+        cin >> name;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getName() == name)
+            {
+                if (it->borrow())
+                {
+                    cout << "借书成功！" << endl;
+                    return;
+                }
+                else
+                {
+                    cout << "借书失败，库存不够！" << endl;
+                    return;
+                }
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+}
+
+void givebackBook(vector<Book> &bookList)
+{
+    int choice;
+    cout << "1.按编号还书   2.按书名还书" << endl;
+    cin >> choice;
+    if (choice == 1)
+    {
+        int id;
+        cout << "请输入编号：";
+        cin >> id;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getId() == id)
+            {
+                it->giveBack();
+                cout << "还书成功！" << endl;
+                return;
+            }
+        }
+        cout << "未查找到此书！" << endl;
+    }
+    else if (choice == 2)
+    {
+        string name;
+        cout << "请输入书名：" << endl;
+        cin >> name;
+        for (auto it = bookList.begin();it != bookList.end();it++)
+        {
+            if (it->getName() == name)
+            {
+                it->giveBack();
+                cout << "还书成功！" << endl;
                 return;
             }
         }
