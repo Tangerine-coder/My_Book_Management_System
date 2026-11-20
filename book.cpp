@@ -30,6 +30,7 @@ void Book::giveBack()
 
 void Book::showInfo() const
 {
+    cout << "编号\t书名\t作者\t库存" << endl;
     cout << id << '\t' << name << '\t' << author << '\t' << stock << endl;
 }
 
@@ -73,7 +74,6 @@ void queryBook(vector<Book> &bookList)
         {
             if(b.getId() == id)
             {
-                cout << "编号\t书名\t作者\t库存" << endl;
                 b.showInfo();
                 return;
             }
@@ -288,5 +288,17 @@ void givebackBook(vector<Book> &bookList)
             }
         }
         cout << "未查找到此书！" << endl;
+    }
+}
+
+void showBook(vector<Book> &bookList)
+{
+    cout << "编号\t书名\t作者\t库存" << endl;
+    for (auto &b:bookList)
+    {
+        cout << b.getId() << '\t';
+        cout << b.getName() << '\t';
+        cout << b.getAuthor() << '\t';
+        cout << b.getStock() << endl;
     }
 }

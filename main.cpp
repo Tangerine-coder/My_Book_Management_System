@@ -17,6 +17,7 @@ void menu()
     cout << "4.删除图书" << endl;
     cout << "5.借阅图书" << endl;
     cout << "6.归还图书" << endl;
+    cout << "7.显示所有图书信息" << endl;
     cout << "0.保存并退出" << endl;
     cout << "请输入选择：";
 }
@@ -62,6 +63,10 @@ int main()
         else if (op == 6)
         {
             givebackBook(bookList);
+        }
+        else if (op == 7)
+        {
+            showBook(bookList);
         }
     }
     return 0;

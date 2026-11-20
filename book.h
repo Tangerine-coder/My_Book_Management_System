@@ -41,5 +41,7 @@ void modifyBook(vector<Book> &bookList);
 void deleteBook(vector<Book> &bookList);
 void borrowBook(vector<Book> &bookList);
 void givebackBook(vector<Book> &bookList);
+void showBook(vector<Book> &bookList);
+
 
 #endif
