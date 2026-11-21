@@ -1,21 +1,27 @@
 #include "book.h"
+#include <limits>
+Book::Book() : id(0), name(""), author(""), stock(0) {}
+Book::Book(int id_, string name_, string author_, int stock_) : id(id_), name(name_), author(author_), stock(stock_) {}
 
-Book::Book():id(0),name(""),author(""),stock(0){}
-Book::Book(int id_, string name_, string author_, int stock_):id(id_),name(name_),author(author_),stock(stock_){}
+int Book::getId() const { return id; }
+string Book::getName() const { return name; }
+string Book::getAuthor() const { return author; }
+int Book::getStock() const { return stock; }
 
-int Book::getId() const{return id;}
-string Book::getName() const{return name;}
-string Book::getAuthor() const{return author;}
-int Book::getStock() const{return stock;}
+void Book::setId(int id_) { id = id_; }
+void Book::setName(string name_) { name = name_; }
+void Book::setAuthor(string author_) { author = author_; }
+void Book::setStock(int stock_) { stock = stock_; }
 
-void Book::setId(int id_) {id = id_;}
-void Book::setName(string name_) {name = name_;}
-void Book::setAuthor(string author_) {author = author_;}
-void Book::setStock(int stock_) {stock = stock_;}
+// 清缓冲区这一整行
+void clearLine()
+{
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
 
 bool Book::borrow()
 {
-    if (stock>0)
+    if (stock > 0)
     {
         stock--;
         return true;
@@ -41,8 +47,13 @@ void addBook(vector<Book> &bookList)
     string author;
     int stock;
     cout << "请输入编号：";
-    cin >> id;
-    for (auto &b:bookList)
+    while (!(cin >> id))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入编号（数字型）:";
+    }
+    for (auto &b : bookList)
     {
         if (b.getId() == id)
         {
@@ -56,7 +67,7 @@ void addBook(vector<Book> &bookList)
     cin >> author;
     cout << "请输入库存: ";
     cin >> stock;
-    Book newBook(id,name,author,stock);
+    Book newBook(id, name, author, stock);
     bookList.push_back(newBook);
 }
 
@@ -70,9 +81,9 @@ void queryBook(vector<Book> &bookList)
         int id;
         cout << "请输入编号： ";
         cin >> id;
-        for (auto &b:bookList)
+        for (auto &b : bookList)
         {
-            if(b.getId() == id)
+            if (b.getId() == id)
             {
                 b.showInfo();
                 return;
@@ -85,7 +96,7 @@ void queryBook(vector<Book> &bookList)
         string name;
         cout << "请输入书名: ";
         cin >> name;
-        for (auto &b:bookList)
+        for (auto &b : bookList)
         {
             if (b.getName() == name)
             {
@@ -108,14 +119,14 @@ void modifyBook(vector<Book> &bookList)
         int id;
         cout << "请输入编号：";
         cin >> id;
-        for (auto &b:bookList)
+        for (auto &b : bookList)
         {
             if (b.getId() == id)
             {
                 int stock;
                 cout << "输入库存数：";
                 cin >> stock;
-                if (stock<0)
+                if (stock < 0)
                 {
                     cout << "库存为负，不合法！" << endl;
                     return;
@@ -135,7 +146,7 @@ void modifyBook(vector<Book> &bookList)
         string name;
         cout << "请输入书名：" << " ";
         cin >> name;
-        for (auto &b:bookList)
+        for (auto &b : bookList)
         {
             if (b.getName() == name)
             {
@@ -169,7 +180,7 @@ void deleteBook(vector<Book> &bookList)
         int id;
         cout << "请输入编号：";
         cin >> id;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
             {
@@ -185,7 +196,7 @@ void deleteBook(vector<Book> &bookList)
         string name;
         cout << "请输入书名：";
         cin >> name;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
             {
@@ -208,7 +219,7 @@ void borrowBook(vector<Book> &bookList)
         int id;
         cout << "请输入编号：";
         cin >> id;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
             {
@@ -232,7 +243,7 @@ void borrowBook(vector<Book> &bookList)
         string name;
         cout << "请输入书名：";
         cin >> name;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
             {
@@ -262,7 +273,7 @@ void givebackBook(vector<Book> &bookList)
         int id;
         cout << "请输入编号：";
         cin >> id;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
             {
@@ -278,7 +289,7 @@ void givebackBook(vector<Book> &bookList)
         string name;
         cout << "请输入书名：" << endl;
         cin >> name;
-        for (auto it = bookList.begin();it != bookList.end();it++)
+        for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
             {
@@ -294,7 +305,7 @@ void givebackBook(vector<Book> &bookList)
 void showBook(vector<Book> &bookList)
 {
     cout << "编号\t书名\t作者\t库存" << endl;
-    for (auto &b:bookList)
+    for (auto &b : bookList)
     {
         cout << b.getId() << '\t';
         cout << b.getName() << '\t';
