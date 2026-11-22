@@ -3,6 +3,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
+#include <limits>
 #endif
 
 #include <iostream>
@@ -21,6 +22,12 @@ void menu()
     cout << "0.保存并退出" << endl;
     cout << "请输入选择：";
 }
+
+void clearMainLine()
+{
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 int main()
 {
 #ifdef _WIN32
@@ -34,7 +41,12 @@ int main()
     {
         menu();
         int op;
-        cin >> op;
+        while(!(cin >> op))
+        {
+            cin.clear();
+            clearMainLine();
+            cout << "输入不合法，请输入选项（数字型）：";
+        }
         if (op == 0)
         {
             cout << "保存成功" << endl;

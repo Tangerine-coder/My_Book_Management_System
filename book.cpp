@@ -66,21 +66,38 @@ void addBook(vector<Book> &bookList)
     cout << "请输入作者：";
     cin >> author;
     cout << "请输入库存: ";
-    cin >> stock;
+    while (!(cin >> stock))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入库存（数字型）：";
+    }
     Book newBook(id, name, author, stock);
     bookList.push_back(newBook);
+    cout << "添加成功！" << endl;
 }
 
 void queryBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号查询    2.按书名查询" << endl;
-    cin >> choice;
+    cout << "请输入选项：";
+    while (!(cin >> choice))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入选项（数字型）：";
+    }
     if (choice == 1)
     {
         int id;
         cout << "请输入编号： ";
-        cin >> id;
+        while (!(cin >> id))
+        {
+            cin.clear();
+            clearLine();
+            cout << "输入不合法，请输入编号（数字型）：";
+        }
         for (auto &b : bookList)
         {
             if (b.getId() == id)
@@ -91,41 +108,60 @@ void queryBook(vector<Book> &bookList)
         }
         cout << "未查找到此书！" << endl;
     }
-    else if (choice == 2)
-    {
-        string name;
-        cout << "请输入书名: ";
-        cin >> name;
-        for (auto &b : bookList)
+        else if (choice == 2)
         {
-            if (b.getName() == name)
+            string name;
+            cout << "请输入书名: ";
+            cin >> name;
+            for (auto &b : bookList)
             {
-                cout << "编号\t书名\t作者\t库存" << endl;
-                b.showInfo();
-                return;
+                if (b.getName() == name)
+                {
+                    b.showInfo();
+                    return;
+                }
             }
+            cout << "未查找到此书！" << endl;
         }
-        cout << "未查找到此书！" << endl;
-    }
+        else
+        {
+            cout << "输入选项无效，请重新输入";
+        }
 }
 
 void modifyBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号修改    2.按书名修改" << endl;
-    cin >> choice;
+    cout << "请输入选项：";
+    while (!(cin >> choice))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入选项（数字型）：";
+    }
     if (choice == 1)
     {
         int id;
         cout << "请输入编号：";
-        cin >> id;
+        while (!(cin >> id))
+        {
+            cin.clear();
+            clearLine();
+            cout << "输入不合法，请输入编号（数字型）：";
+        }
         for (auto &b : bookList)
         {
             if (b.getId() == id)
             {
                 int stock;
                 cout << "输入库存数：";
-                cin >> stock;
+                while(!(cin>>stock))
+                {
+                    cin.clear();
+                    clearLine();
+                    cout << "输入不合法，请输入库存（数字型）：";
+                }
                 if (stock < 0)
                 {
                     cout << "库存为负，不合法！" << endl;
@@ -152,7 +188,12 @@ void modifyBook(vector<Book> &bookList)
             {
                 int stock;
                 cout << "输入库存数：";
-                cin >> stock;
+                while (!(cin >> stock))
+                {
+                    cin.clear();
+                    clearLine();
+                    cout << "输入不合法，请输入库存（数字型）：";
+                }
                 if (stock < 0)
                 {
                     cout << "库存为负，不合法！" << endl;
@@ -168,18 +209,33 @@ void modifyBook(vector<Book> &bookList)
         }
         cout << "未查找到此书！" << endl;
     }
+    else
+    {
+        cout << "输入选项无效，请重新选择";
+    }
 }
 
 void deleteBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号删除    2.按名字删除" << endl;
-    cin >> choice;
+    cout << "请输入选项";
+    while (!(cin >> choice))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入选项（数字型）：";
+    }
     if (choice == 1)
     {
         int id;
         cout << "请输入编号：";
-        cin >> id;
+        while (!(cin >> id))
+        {
+            cin.clear();
+            clearLine();
+            cout << "输入不合法，请输入编号（数字型）：";
+        }
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
@@ -207,18 +263,33 @@ void deleteBook(vector<Book> &bookList)
         }
         cout << "未查找到此书！" << endl;
     }
+    else
+    {
+        cout << "输入选项无效，请重新选择";
+    }
 }
 
 void borrowBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号借书   2.按书名借书" << endl;
-    cin >> choice;
+    cout << "请输入选项：";
+    while (!(cin >> choice))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入选项（数字型）：";
+    }
     if (choice == 1)
     {
         int id;
         cout << "请输入编号：";
-        cin >> id;
+        while (!(cin >> id))
+        {
+            cin.clear();
+            clearLine();
+            cout << "输入不合法，请输入编号（数字型）：";
+        }
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
@@ -261,18 +332,33 @@ void borrowBook(vector<Book> &bookList)
         }
         cout << "未查找到此书！" << endl;
     }
+    else
+    {
+        cout << "输入选项无效，请重新选择";
+    }
 }
 
 void givebackBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号还书   2.按书名还书" << endl;
-    cin >> choice;
+    cout << "请输入选项";
+    while (!(cin >> choice))
+    {
+        cin.clear();
+        clearLine();
+        cout << "输入不合法，请输入选项（数字型）：";
+    }
     if (choice == 1)
     {
         int id;
         cout << "请输入编号：";
-        cin >> id;
+        while (!(cin >> id))
+        {
+            cin.clear();
+            clearLine();
+            cout << "输入不合法，请输入编号（数字型）：";
+        }
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
@@ -299,6 +385,10 @@ void givebackBook(vector<Book> &bookList)
             }
         }
         cout << "未查找到此书！" << endl;
+    }
+    else
+    {
+        cout << "输入选项无效，请重新选择";
     }
 }
 
