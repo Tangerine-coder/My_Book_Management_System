@@ -37,6 +37,7 @@ int main()
 #endif
 
     vector<Book> bookList;
+    load (bookList);
     while(true)
     {
         menu();
@@ -50,6 +51,7 @@ int main()
         if (op == 0)
         {
             cout << "保存成功" << endl;
+            save(bookList);
             break;
         }
         else if (op == 1)
@@ -79,6 +81,10 @@ int main()
         else if (op == 7)
         {
             showBook(bookList);
+        }
+        else
+        {
+            cout << "输入选项无效，请重新选择" << endl;
         }
     }
     return 0;

@@ -43,5 +43,8 @@ void borrowBook(vector<Book> &bookList);
 void givebackBook(vector<Book> &bookList);
 void showBook(vector<Book> &bookList);
 
+//文件管理
+void load(vector<Book> &bookList);
+void save(vector<Book> &bookList);
 
 #endif

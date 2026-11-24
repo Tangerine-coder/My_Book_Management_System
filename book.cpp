@@ -1,5 +1,6 @@
 #include "book.h"
 #include <limits>
+#include <fstream>
 Book::Book() : id(0), name(""), author(""), stock(0) {}
 Book::Book(int id_, string name_, string author_, int stock_) : id(id_), name(name_), author(author_), stock(stock_) {}
 
@@ -402,4 +403,37 @@ void showBook(vector<Book> &bookList)
         cout << b.getAuthor() << '\t';
         cout << b.getStock() << endl;
     }
+}
+
+void load(vector<Book> &bookList)
+{
+    ifstream inFile("books.txt");
+    if (!inFile)
+    {
+        cout << "无法打开文件，可能是第一次运行程序，文件不存在" << endl;
+        return;
+    }
+    int id, stock;
+    string name, author;
+    while (inFile >> id >> name >> author >> stock)
+    {
+        Book b(id, name, author, stock);
+        bookList.push_back(b);
+    }
+    inFile.close();
+}
+
+void save(vector<Book> &bookList)
+{
+    ofstream outFile("books.txt");
+    if (!outFile)
+    {
+        cout << "无法打开文件，保存失败" << endl;
+        return;
+    }
+    for (auto &b : bookList)
+    {
+        outFile << b.getId() << ' ' << b.getName() << ' ' << b.getAuthor() << ' ' << b.getStock() << endl;
+    }
+    outFile.close();
 }
