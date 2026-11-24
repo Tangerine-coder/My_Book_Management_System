@@ -20,6 +20,23 @@ void clearLine()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+// 实现书名、作者可以实现带空格的
+string trim(const string &str)
+{
+    size_t first = str.find_first_not_of("\t\r\n ");
+    if (first == string::npos)
+        return "";
+    size_t last = str.find_last_not_of("\t\r\n ");
+    return str.substr(first, (last - first + 1));
+}
+
+string readLine()
+{
+    string line;
+    getline(cin, line);
+    return trim(line);
+}
+
 bool Book::borrow()
 {
     if (stock > 0)
@@ -44,8 +61,6 @@ void Book::showInfo() const
 void addBook(vector<Book> &bookList)
 {
     int id;
-    string name;
-    string author;
     int stock;
     cout << "请输入编号：";
     while (!(cin >> id))
@@ -54,6 +69,7 @@ void addBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入编号（数字型）:";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     for (auto &b : bookList)
     {
         if (b.getId() == id)
@@ -63,9 +79,9 @@ void addBook(vector<Book> &bookList)
         }
     }
     cout << "请输入书名：";
-    cin >> name;
+    string name = readLine();
     cout << "请输入作者：";
-    cin >> author;
+    string author = readLine();
     cout << "请输入库存: ";
     while (!(cin >> stock))
     {
@@ -73,6 +89,7 @@ void addBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入库存（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     Book newBook(id, name, author, stock);
     bookList.push_back(newBook);
     cout << "添加成功！" << endl;
@@ -89,6 +106,7 @@ void queryBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入选项（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     if (choice == 1)
     {
         int id;
@@ -111,9 +129,8 @@ void queryBook(vector<Book> &bookList)
     }
         else if (choice == 2)
         {
-            string name;
             cout << "请输入书名: ";
-            cin >> name;
+            string name = readLine();
             for (auto &b : bookList)
             {
                 if (b.getName() == name)
@@ -126,7 +143,7 @@ void queryBook(vector<Book> &bookList)
         }
         else
         {
-            cout << "输入选项无效，请重新输入";
+            cout << "输入选项无效，请重新输入" << endl;
         }
 }
 
@@ -141,6 +158,7 @@ void modifyBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入选项（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     if (choice == 1)
     {
         int id;
@@ -151,6 +169,7 @@ void modifyBook(vector<Book> &bookList)
             clearLine();
             cout << "输入不合法，请输入编号（数字型）：";
         }
+        clearLine(); // 清除缓冲区，避免后续输入被截断
         for (auto &b : bookList)
         {
             if (b.getId() == id)
@@ -163,6 +182,7 @@ void modifyBook(vector<Book> &bookList)
                     clearLine();
                     cout << "输入不合法，请输入库存（数字型）：";
                 }
+                clearLine(); // 清除缓冲区，避免后续输入被截断
                 if (stock < 0)
                 {
                     cout << "库存为负，不合法！" << endl;
@@ -180,9 +200,8 @@ void modifyBook(vector<Book> &bookList)
     }
     else if (choice == 2)
     {
-        string name;
         cout << "请输入书名：" << " ";
-        cin >> name;
+        string name = readLine();
         for (auto &b : bookList)
         {
             if (b.getName() == name)
@@ -195,6 +214,7 @@ void modifyBook(vector<Book> &bookList)
                     clearLine();
                     cout << "输入不合法，请输入库存（数字型）：";
                 }
+                clearLine(); // 清除缓冲区，避免后续输入被截断
                 if (stock < 0)
                 {
                     cout << "库存为负，不合法！" << endl;
@@ -212,7 +232,7 @@ void modifyBook(vector<Book> &bookList)
     }
     else
     {
-        cout << "输入选项无效，请重新选择";
+        cout << "输入选项无效，请重新选择" << endl;
     }
 }
 
@@ -227,6 +247,7 @@ void deleteBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入选项（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     if (choice == 1)
     {
         int id;
@@ -250,9 +271,8 @@ void deleteBook(vector<Book> &bookList)
     }
     else if (choice == 2)
     {
-        string name;
         cout << "请输入书名：";
-        cin >> name;
+        string name = readLine();
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
@@ -266,7 +286,7 @@ void deleteBook(vector<Book> &bookList)
     }
     else
     {
-        cout << "输入选项无效，请重新选择";
+        cout << "输入选项无效，请重新选择" << endl;
     }
 }
 
@@ -281,6 +301,7 @@ void borrowBook(vector<Book> &bookList)
         clearLine();
         cout << "输入不合法，请输入选项（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     if (choice == 1)
     {
         int id;
@@ -291,6 +312,7 @@ void borrowBook(vector<Book> &bookList)
             clearLine();
             cout << "输入不合法，请输入编号（数字型）：";
         }
+        clearLine(); // 清除缓冲区，避免后续输入被截断
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
@@ -312,9 +334,8 @@ void borrowBook(vector<Book> &bookList)
     }
     else if (choice == 2)
     {
-        string name;
         cout << "请输入书名：";
-        cin >> name;
+        string name = readLine();
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
@@ -335,7 +356,7 @@ void borrowBook(vector<Book> &bookList)
     }
     else
     {
-        cout << "输入选项无效，请重新选择";
+        cout << "输入选项无效，请重新选择" << endl;
     }
 }
 
@@ -343,13 +364,14 @@ void givebackBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号还书   2.按书名还书" << endl;
-    cout << "请输入选项";
+    cout << "请输入选项：";
     while (!(cin >> choice))
     {
         cin.clear();
         clearLine();
         cout << "输入不合法，请输入选项（数字型）：";
     }
+    clearLine(); // 清除缓冲区，避免后续输入被截断
     if (choice == 1)
     {
         int id;
@@ -360,6 +382,7 @@ void givebackBook(vector<Book> &bookList)
             clearLine();
             cout << "输入不合法，请输入编号（数字型）：";
         }
+        clearLine(); // 清除缓冲区，避免后续输入被截断
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getId() == id)
@@ -373,9 +396,8 @@ void givebackBook(vector<Book> &bookList)
     }
     else if (choice == 2)
     {
-        string name;
-        cout << "请输入书名：" << endl;
-        cin >> name;
+        cout << "请输入书名：";
+        string name = readLine();
         for (auto it = bookList.begin(); it != bookList.end(); it++)
         {
             if (it->getName() == name)
@@ -389,7 +411,7 @@ void givebackBook(vector<Book> &bookList)
     }
     else
     {
-        cout << "输入选项无效，请重新选择";
+        cout << "输入选项无效，请重新选择" << endl;
     }
 }
 
