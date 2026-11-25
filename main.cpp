@@ -50,8 +50,8 @@ int main()
         }
         if (op == 0)
         {
-            cout << "保存成功" << endl;
             save(bookList);
+            cout << "保存成功" << endl;
             break;
         }
         else if (op == 1)

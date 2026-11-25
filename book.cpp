@@ -37,6 +37,31 @@ string readLine()
     return trim(line);
 }
 
+// 按指定分隔符分割字符串，自动trim首尾空白
+vector<string> split(const string &str,char delimiter)
+{
+    vector<string> res;
+    string temp;
+    for (char c:str)
+    {
+        if (c == delimiter)
+        {
+            res.push_back(trim(temp));
+            temp.clear();
+        }
+        else
+        {
+            temp += c;
+        }
+    }
+    if (!temp.empty())
+    {
+        res.push_back(trim(temp));
+    }
+    return res;
+}
+
+// 功能函数实现
 bool Book::borrow()
 {
     if (stock > 0)
@@ -240,7 +265,7 @@ void deleteBook(vector<Book> &bookList)
 {
     int choice;
     cout << "1.按编号删除    2.按名字删除" << endl;
-    cout << "请输入选项";
+    cout << "请输入选项：";
     while (!(cin >> choice))
     {
         cin.clear();
@@ -435,14 +460,33 @@ void load(vector<Book> &bookList)
         cout << "无法打开文件，可能是第一次运行程序，文件不存在" << endl;
         return;
     }
-    int id, stock;
-    string name, author;
-    while (inFile >> id >> name >> author >> stock)
+    bookList.clear(); // 加载前清空容器，避免重复数据
+    string line;
+    while (getline(inFile, line))
     {
-        Book b(id, name, author, stock);
-        bookList.push_back(b);
+        if (line.empty())
+            continue; // 跳过空行
+        vector <string> fields = split(line, ',');
+        if (fields.size() != 4)
+        {
+            cout << "数据格式错误，跳过此行：" << line << endl;
+            continue;
+        }
+        try
+        {
+            int id = stoi(fields[0]);
+            string name = fields[1];
+            string author = fields[2];
+            int stock = stoi(fields[3]);
+            Book b(id, name, author, stock);
+            bookList.push_back(b);
+        }
+        catch(...)
+        {
+            // 数字转化失败也跳过该行，但是不整体中断
+            cout << "跳过数据异常的行：" << line << endl;
+        }
     }
-    inFile.close();
 }
 
 void save(vector<Book> &bookList)
@@ -455,7 +499,7 @@ void save(vector<Book> &bookList)
     }
     for (auto &b : bookList)
     {
-        outFile << b.getId() << ' ' << b.getName() << ' ' << b.getAuthor() << ' ' << b.getStock() << endl;
+        outFile << b.getId() << ',' << b.getName() << ',' << b.getAuthor() << ',' << b.getStock() << endl;
     }
     outFile.close();
 }
