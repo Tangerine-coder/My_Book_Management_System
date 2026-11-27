@@ -23,10 +23,10 @@ void clearLine()
 // 实现书名、作者可以实现带空格的
 string trim(const string &str)
 {
-    size_t first = str.find_first_not_of("\t\r\n ");
+    size_t first = str.find_first_not_of(" \t\r\n ");
     if (first == string::npos)
         return "";
-    size_t last = str.find_last_not_of("\t\r\n ");
+    size_t last = str.find_last_not_of(" \t\r\n ");
     return str.substr(first, (last - first + 1));
 }
 
@@ -225,7 +225,7 @@ void modifyBook(vector<Book> &bookList)
     }
     else if (choice == 2)
     {
-        cout << "请输入书名：" << " ";
+        cout << "请输入书名：";
         string name = readLine();
         for (auto &b : bookList)
         {
@@ -454,6 +454,7 @@ void showBook(vector<Book> &bookList)
 
 void load(vector<Book> &bookList)
 {
+    bookList.clear();
     ifstream inFile("books.txt");
     if (!inFile)
     {

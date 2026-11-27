@@ -84,7 +84,7 @@ int main()
         }
         else
         {
-            cout << "输入选项无效，请重新选择" << endl;
+            cout << "输入选项无效，请重新选择：" << endl;
         }
     }
     return 0;
